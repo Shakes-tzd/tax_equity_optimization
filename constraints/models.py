@@ -1,6 +1,8 @@
-from typing import List, Dict, Union, Optional
-from pydantic import BaseModel, Field
+# constraints/models.py
+
+from typing import List, Optional, Union, Dict
 from enum import Enum
+from pydantic import BaseModel, Field
 
 class ConstraintCategory(str, Enum):
     GEOGRAPHIC = "Geographic"
@@ -19,15 +21,15 @@ class Condition(BaseModel):
 
 class Constraint(BaseModel):
     name: str
-    category: ConstraintCategory
-    constraint_type: ConstraintType
-    attribute: str
-    measure: str
-    upper_bound: float
-    conditions: List[Condition]
-    group_name: Optional[str] = None
+    category: Optional[ConstraintCategory] = None
+    constraint_type: ConstraintType = ConstraintType.UPPER_BOUND
+    attribute: str = ""
+    measure: str = "FMV"
+    upper_bound: Optional[float] = None
     aggregation: Optional[str] = None
     apply_per_value: bool = False
+    conditions: List[Condition] = Field(default_factory=list)
+    group_name: Optional[str] = None
     current_allocation: float = 0.0
     remaining_capacity: float = 0.0
     active: bool = True
@@ -35,4 +37,4 @@ class Constraint(BaseModel):
 class Fund(BaseModel):
     name: str
     capacity: float
-    constraints: List[Constraint]
+    constraints: List[Constraint] = Field(default_factory=list)

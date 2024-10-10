@@ -1,52 +1,106 @@
-from typing import Dict, List
+# optimization/optimizer.py
+
+from typing import Dict, List, Tuple
+from constraints.models import Fund, ConstraintType
+from constraints.constraint_utils import initialize_constraint_caps, apply_exclusions
 import pandas as pd
-from constraints.models import Fund, Constraint
-from utils.constraint_processing import build_where_clause
-from utils.data_processing import execute_query, update_allocations
 
-def run_optimization(con, funds: Dict[str, Fund], fund_targets: Dict[str, Dict[str, float]]):
-    allocation_results = {}
+def allocate_systems_to_fund(systems_df: pd.DataFrame, fund: Fund) -> Tuple[pd.DataFrame, List[str], pd.DataFrame]:
+    """
+    Allocate systems to a fund based on constraints, maximizing total FMV.
+    Returns allocated systems, a list of infeasible constraints if any, and constraint usage data.
+    """
+    infeasible_constraints = []
+    # Apply exclusion constraints
+    systems_df = apply_exclusions(systems_df, fund)
 
-    for fund_name, fund in funds.items():
-        if fund_name not in fund_targets:
-            continue
+    # Initialize constraint capacities
+    attribute_caps, constrained_values = initialize_constraint_caps(fund)
 
-        remaining_capacity = fund_targets[fund_name]['target_amount'] - fund_targets[fund_name]['allocated_amount']
+    # Initialize allocations
+    allocated_systems = pd.DataFrame()
+    remaining_fund_capacity = fund.capacity
 
-        if remaining_capacity <= 0:
-            allocation_results[fund_name] = {'allocated_fmv': 0.0}
-            continue
+    # Keep track of allocated FMV per constraint
+    constraint_usage = {}  # constraint -> allocated FMV
+    constraint_upper_bounds = {}  # constraint -> upper bound
 
-        where_clause = build_where_clause(fund.constraints)
-        query = f"SELECT * FROM backlog WHERE allocated_fund IS NULL AND {where_clause}"
-        df_fund = execute_query(con, query)
+    # Prepare constraints data
+    for attribute, caps in attribute_caps.items():
+        for value, cap in caps.items():
+            constraint = (attribute, value)
+            constraint_usage[constraint] = 0.0
+            constraint_upper_bounds[constraint] = cap
 
-        if df_fund.empty:
-            allocation_results[fund_name] = {'allocated_fmv': 0.0}
-            continue
+    # Prepare systems data
+    systems_df = systems_df.copy()
+    systems_df['Applicable Constraints'] = [[] for _ in range(len(systems_df))]
+    systems_df['System Index'] = systems_df.index
 
-        df_allocated = allocate_systems(df_fund, remaining_capacity, fund.constraints)
-        
-        if not df_allocated.empty:
-            update_allocations(con, df_allocated, fund_name)
-            allocated_fmv = df_allocated['FMV'].sum()
-            allocation_results[fund_name] = {'allocated_fmv': allocated_fmv}
+    # For each system, determine applicable constraints
+    for idx, system in systems_df.iterrows():
+        applicable_constraints = []
+        for attribute, caps in attribute_caps.items():
+            value = system[attribute]
+            if value in caps:
+                applicable_constraints.append((attribute, value))
+            elif '__OTHERS__' in caps and value not in constrained_values.get(attribute, set()):
+                applicable_constraints.append((attribute, '__OTHERS__'))
+        systems_df.at[idx, 'Applicable Constraints'] = applicable_constraints
+
+    # Sort systems by FMV descending
+    systems_df = systems_df.sort_values(by='FMV', ascending=False)
+
+    # Initialize capacities
+    constraint_capacities = constraint_upper_bounds.copy()
+
+    # Allocate systems
+    allocated_indices = []
+    for idx, system in systems_df.iterrows():
+        system_fmv = system['FMV']
+        applicable_constraints = system['Applicable Constraints']
+        feasible = True
+        # Check fund capacity
+        if remaining_fund_capacity < system_fmv:
+            feasible = False
         else:
-            allocation_results[fund_name] = {'allocated_fmv': 0.0}
+            # Check constraints
+            for constraint in applicable_constraints:
+                cap = constraint_capacities.get(constraint, 0)
+                if cap < system_fmv:
+                    feasible = False
+                    break
+        if feasible:
+            # Allocate system
+            allocated_indices.append(idx)
+            remaining_fund_capacity -= system_fmv
+            # Update constraints
+            for constraint in applicable_constraints:
+                constraint_capacities[constraint] -= system_fmv
+                constraint_usage[constraint] += system_fmv
+        else:
+            # Could not allocate due to constraints
+            for constraint in applicable_constraints:
+                cap = constraint_capacities.get(constraint, 0)
+                if cap < system_fmv:
+                    infeasible_constraints.append(f"Constraint on {constraint[0]}='{constraint[1]}' exceeded capacity.")
+            if remaining_fund_capacity < system_fmv:
+                infeasible_constraints.append(f"Fund capacity exceeded.")
+    allocated_systems = systems_df.loc[allocated_indices]
 
-    return allocation_results
+    # Prepare constraint usage DataFrame
+    constraint_analysis = []
+    for constraint, usage in constraint_usage.items():
+        upper_bound = constraint_upper_bounds[constraint]
+        remaining_capacity = upper_bound - usage
+        usage_percentage = usage / upper_bound if upper_bound > 0 else 0
+        constraint_analysis.append({
+            'constraint_name': f"{constraint[0]} = {constraint[1]}",
+            'usage': usage,
+            'upper_bound': upper_bound,
+            'remaining_capacity': remaining_capacity,
+            'usage_percentage': usage_percentage
+        })
+    constraint_analysis_df = pd.DataFrame(constraint_analysis)
 
-def allocate_systems(df_fund: pd.DataFrame, remaining_capacity: float, constraints: List[Constraint]) -> pd.DataFrame:
-    # Implementation of system allocation logic
-    # This is a placeholder and should be replaced with your actual allocation algorithm
-    df_fund = df_fund.sort_values(by='FMV', ascending=False)
-    allocated_systems = []
-    total_allocated = 0
-
-    for _, system in df_fund.iterrows():
-        if total_allocated + system['FMV'] > remaining_capacity:
-            break
-        allocated_systems.append(system)
-        total_allocated += system['FMV']
-
-    return pd.DataFrame(allocated_systems)
+    return allocated_systems, list(set(infeasible_constraints)), constraint_analysis_df
