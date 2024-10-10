@@ -1,0 +1,590 @@
+{
+  "Sunnova TEP 8-B LLC": {
+    "capacity": 739480343.67247,
+    "constraints": [
+      {
+        "name": "State_Group_MT_MP_VI_0.3",
+        "category": "Geographic",
+        "constraint_type": "Upper Bound",
+        "attribute": "State",
+        "measure": "FMV",
+        "upper_bound": 0.3,
+        "aggregation": "sum",
+        "conditions": [
+          {
+            "type": "State",
+            "condition": "Equals",
+            "values": ["MT", "MP", "VI"]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 221844103.101741,
+        "active": true
+      },
+      {
+        "name": "State_Individual_MultiState_0.3",
+        "category": "Geographic",
+        "constraint_type": "Upper Bound",
+        "attribute": "State",
+        "measure": "FMV",
+        "upper_bound": 0.3,
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "State",
+            "condition": "Equals",
+            "values": [
+              "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS",
+              "MO", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH",
+              "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT",
+              "VT", "VA", "WA", "WV", "WI", "WY"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 221844103.101741,
+        "active": true
+      },
+      {
+        "name": "RackingManufacturer_Group_GroundMount_0.1",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Racking Manufacturer",
+        "measure": "FMV",
+        "upper_bound": 0.1,
+        "aggregation": "sum",
+        "group_name": "Racking Manufacturers Group 1",
+        "conditions": [
+          {
+            "type": "Racking Manufacturer",
+            "condition": "Equals",
+            "values": [
+              "Solar Foundations - Ground Mount",
+              "Unirac - Ground Mount",
+              "IronRidge - Ground Mount",
+              "K2 Systems - Ground Mount",
+              "Sunmodo - Ground Mount"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 73948034.367247,
+        "active": true
+      },
+      {
+        "name": "ModuleManufacturer_Group_Hanwha_Qcells_0.65",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Module Manufacturer",
+        "measure": "FMV",
+        "upper_bound": 0.65,
+        "aggregation": "sum",
+        "group_name": "Module Manufacturers Group 1",
+        "conditions": [
+          {
+            "type": "Module Manufacturer",
+            "condition": "Equals",
+            "values": ["Hanwha Q Cells", "Qcells"]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 480662223.3871055,
+        "active": true
+      },
+      {
+        "name": "ModuleManufacturer_Group_SEG_Silfab_0.1",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Module Manufacturer",
+        "measure": "FMV",
+        "upper_bound": 0.1,
+        "aggregation": "sum",
+        "group_name": "Module Manufacturers Group 2",
+        "conditions": [
+          {
+            "type": "Module Manufacturer",
+            "condition": "Equals",
+            "values": ["SEG Solar", "Silfab"]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 73948034.367247,
+        "active": true
+      },
+      {
+        "name": "ModuleManufacturer_Individual_Various",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Module Manufacturer",
+        "measure": "FMV",
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "Module Manufacturer",
+            "condition": "Equals",
+            "values": {
+              "__OTHERS__": 0.1,
+              "Canadian Solar": 0.4,
+              "JA Solar": 0.05,
+              "Jinko Solar": 0.3,
+              "LG Electronics USA, Inc.": 0.1,
+              "LONGi": 0.3,
+              "Mission Solar": 0.05,
+              "Panasonic": 0.05,
+              "REC Solar": 0.4,
+              "Seraphim": 0.1,
+              "Solaria": 0.05,
+              "Tesla": 0.05,
+              "Trina Solar, Inc.": 0.2
+            }
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 295792137.46899,
+        "active": true
+      }
+    ]
+  },
+  "Sunnova TEP 8-C LLC": {
+    "capacity": 354090000,
+    "constraints": [
+      {
+        "name": "State_Exclusions",
+        "category": "Geographic",
+        "constraint_type": "Exclusion",
+        "attribute": "State",
+        "measure": "FMV",
+        "upper_bound": 0,
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "State",
+            "condition": "Equals",
+            "values": [
+              "AL", "AK", "DC", "GU", "IN", "IA", "KY", "LA", "MI", "MS",
+              "MO", "MT", "NE", "NH", "NC", "ND", "MP", "OH", "OK", "OR",
+              "PA", "PR", "RI", "SD", "TN", "UT", "VT", "VA", "VI", "WA",
+              "WV", "WI", "WY"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 0,
+        "active": true
+      }
+    ]
+  },
+  "Sunnova TEP 8-D LLC": {
+    "capacity": 573670298.412683,
+    "constraints": [
+      {
+        "name": "State_Exclusions",
+        "category": "Geographic",
+        "constraint_type": "Exclusion",
+        "attribute": "State",
+        "measure": "FMV",
+        "upper_bound": 0,
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "State",
+            "condition": "Equals",
+            "values": [
+              "AL", "AK", "GU", "IL", "LA", "MP", "TN", "VI", "WI", "WY"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 0,
+        "active": true
+      },
+      {
+        "name": "ModuleManufacturer_Group_Various_0.1",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Module Manufacturer",
+        "measure": "FMV",
+        "upper_bound": 0.1,
+        "aggregation": "sum",
+        "conditions": [
+          {
+            "type": "Module Manufacturer",
+            "condition": "Equals",
+            "values": [
+              "Solaria", "Silfab", "Mission", "Aptos", "VSUN",
+              "Meyer Burger", "Tesla"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 57367029.8412683,
+        "active": true
+      },
+      {
+        "name": "BatteryManufacturer_Group_0.1",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Battery Manufacturer",
+        "measure": "FMV",
+        "upper_bound": 0.1,
+        "aggregation": "sum",
+        "conditions": [
+          {
+            "type": "Battery Manufacturer",
+            "condition": "Equals",
+            "values": ["Generac", "FranklinWH"]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 57367029.8412683,
+        "active": true
+      },
+      {
+        "name": "InverterManufacturer_Generac_0.1",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Inverter Manufacturer",
+        "measure": "FMV",
+        "upper_bound": 0.1,
+        "conditions": [
+          {
+            "type": "Inverter Manufacturer",
+            "condition": "Equals",
+            "value": "Generac"
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 57367029.8412683,
+        "active": true
+      }
+    ]
+  },
+  "Sunnova TEP 8-E LLC": {
+    "capacity": 680266114.043674,
+    "constraints": [
+      {
+        "name": "State_Group_Territories_0.2",
+        "category": "Geographic",
+        "constraint_type": "Upper Bound",
+        "attribute": "State",
+        "measure": "FMV",
+        "upper_bound": 0.2,
+        "aggregation": "sum",
+        "group_name": "Territories Group",
+        "conditions": [
+          {
+            "type": "State",
+            "condition": "Equals",
+            "values": ["GU", "MP", "PR"]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 136053222.8087348,
+        "active": true
+      },
+      {
+        "name": "State_Group_LowAllocation_0.1",
+        "category": "Geographic",
+        "constraint_type": "Upper Bound",
+        "attribute": "State",
+        "measure": "FMV",
+        "upper_bound": 0.1,
+        "aggregation": "sum",
+        "group_name": "Low Allocation States Group",
+        "conditions": [
+          {
+            "type": "State",
+            "condition": "Equals",
+            "values": [
+              "AL", "AK", "AR", "DE", "GA", "ID", "IN", "IA", "KS", "KY",
+              "LA", "ME", "MI", "MS", "MO", "MT", "NE", "NC", "ND", "OH",
+              "OK", "OR", "SD", "TN", "UT", "VT", "VA", "VI", "WA", "WV",
+              "WI", "WY"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 68026611.4043674,
+        "active": true
+      },
+      {
+        "name": "State_Individual_SpecificBounds",
+        "category": "Geographic",
+        "constraint_type": "Upper Bound",
+        "attribute": "State",
+        "measure": "FMV",
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "State",
+            "condition": "Equals",
+            "values": {
+              "AZ": 0.15,
+              "CA": 0.45,
+              "CO": 0.05,
+              "CT": 0.25,
+              "DC": 0.05,
+              "FL": 0.35,
+              "HI": 0.05,
+              "IL": 0.10,
+              "MD": 0.10,
+              "MA": 0.25,
+              "MN": 0.05,
+              "NV": 0.10,
+              "NH": 0.05,
+              "NJ": 0.20,
+              "NM": 0.05,
+              "NY": 0.10,
+              "PA": 0.15,
+              "RI": 0.05,
+              "SC": 0.05,
+              "TX": 0.10
+            }
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 306119751.31965326,
+        "active": true
+      },
+      {
+        "name": "BatteryModel_Group_Enphase_0.05",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Battery Model",
+        "measure": "FMV",
+        "upper_bound": 0.05,
+        "aggregation": "sum",
+        "group_name": "Enphase Batteries Group",
+        "conditions": [
+          {
+            "type": "Battery Model",
+            "condition": "Equals",
+            "values": [
+              "Enphase Encharge (R1)",
+              "Enphase IQ 3T (R2)",
+              "Enphase IQ 5P (R3)"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 34013305.702183704,
+        "active": true
+      },
+      {
+        "name": "BatteryModel_Individual_Various",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Battery Model",
+        "measure": "FMV",
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "Battery Model",
+            "condition": "Equals",
+            "values": {
+              "Generac PWRcell": 0.05,
+              "Tesla Powerwall 2": 0.6,
+              "Tesla Powerwall+": 0.05,
+              "Tesla Powerwall 3": 0.05,
+              "SolarEdge Home Battery": 0.05
+            }
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 408159668.42620444,
+        "active": true
+      },
+      {
+        "name": "InverterManufacturer_Individual_Various",
+        "category": "Equipment",
+        "constraint_type": "Upper Bound",
+        "attribute": "Inverter Manufacturer",
+        "measure": "FMV",
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "Inverter Manufacturer",
+            "condition": "Equals",
+            "values": {
+              "Enphase Energy Inc": 0.7,
+              "Generac": 0.05,
+              "SolarEdge Technologies Inc.": 0.5,
+              "Tesla": 0.4,
+              "Other / New": 0.05
+            }
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 476186279.83057177,
+        "active": true
+      },
+      {
+        "name": "InstallationPartner_Group_Windmar_0.2",
+        "category": "Partner",
+        "constraint_type": "Upper Bound",
+        "attribute": "Installation Partner Account",
+        "measure": "FMV",
+        "upper_bound": 0.2,
+        "aggregation": "sum",
+        "group_name": "Windmar Group",
+        "conditions": [
+          {
+            "type": "Installation Partner Account",
+            "condition": "Equals",
+            "values": ["Windmar Energy", "Windmar Home Florida Inc."]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 136053222.8087348,
+        "active": true
+      },
+      {
+        "name": "InstallationPartner_Group_OffGrid_0.1",
+        "category": "Partner",
+        "constraint_type": "Upper Bound",
+        "attribute": "Installation Partner Account",
+        "measure": "FMV",
+        "upper_bound": 0.1,
+        "aggregation": "sum",
+        "group_name": "Off Grid Group",
+        "conditions": [
+          {
+            "type": "Installation Partner Account",
+            "condition": "Equals",
+            "values": [
+              "Off Grid",
+              "Off Grid: Linkus",
+              "Off Grid Energy Solutions LLC",
+              "Off Grid: Blue Sky Smart Solutions Inc."
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 68026611.4043674,
+        "active": true
+      },
+      {
+        "name": "InstallationPartner_Group_BrilliantSolar_0.05",
+        "category": "Partner",
+        "constraint_type": "Upper Bound",
+        "attribute": "Installation Partner Account",
+        "measure": "FMV",
+        "upper_bound": 0.05,
+        "aggregation": "sum",
+        "group_name": "Brilliant Solar Group",
+        "conditions": [
+          {
+            "type": "Installation Partner Account",
+            "condition": "Equals",
+            "values": ["Brilliant Solar", "Brilliant Solar - Installer"]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 34013305.702183704,
+        "active": true
+      },
+      {
+        "name": "InstallationPartner_Group_TitanSolar_0.025",
+        "category": "Partner",
+        "constraint_type": "Upper Bound",
+        "attribute": "Installation Partner Account",
+        "measure": "FMV",
+        "upper_bound": 0.025,
+        "aggregation": "sum",
+        "group_name": "Titan Solar Group",
+        "conditions": [
+          {
+            "type": "Installation Partner Account",
+            "condition": "Equals",
+            "values": [
+              "Titan Energy LLC",
+              "Titan Solar Power",
+              "Titan Solar Power FL Inc",
+              "Titan Solar Power GA, Inc.",
+              "Titan Solar Power IL, Inc.",
+              "Titan Solar Power MD, Inc.",
+              "Titan Solar Power NM Inc",
+              "Titan Solar Power SC Inc"
+            ]
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 17006652.851091852,
+        "active": true
+      },
+      {
+        "name": "InstallationPartner_Individual_Various",
+        "category": "Partner",
+        "constraint_type": "Upper Bound",
+        "attribute": "Installation Partner Account",
+        "measure": "FMV",
+        "apply_per_value": true,
+        "conditions": [
+          {
+            "type": "Installation Partner Account",
+            "condition": "Equals",
+            "values": {
+              "Trinity Solar": 0.5,
+              "Power Solar, LLC": 0.2,
+              "LGCY Installation Services LLC": 0.15,
+              "Lumio HX, Inc.": 0.15,
+              "1 Solar": 0.1,
+              "Powur, PBC": 0.1,
+              "SunnyMac, LLC": 0.1,
+              "Our World Energy": 0.1,
+              "V3 Electric, Inc": 0.05,
+              "Meraki Installers LLC": 0.05,
+              "Equity Solar": 0.025,
+              "Solar Energy World": 0.025,
+              "Venture Solar": 0.025,
+              "Skyline Solar, LLC": 0.025,
+              "Rack Electric": 0.025,
+              "West Bay Energy": 0.025,
+              "Kayo LLC": 0.025,
+              "Bracket UT LLC": 0.025,
+              "Capital Energy LLC": 0.025,
+              "Solar Volt Inc": 0.025,
+              "EMT Renewables": 0.025,
+              "Pura Energia": 0.025,
+              "Titanium Solar LLC": 0.025,
+              "Nivo Solar LLC": 0.025,
+              "Direct Solar, LLC": 0.025,
+              "Exo Energy Inc.": 0.025,
+              "Urban Solar Group Inc": 0.025,
+              "Lunex Power, Inc.": 0.025,
+              "Fusion Power": 0.025,
+              "Expert Inc.": 0.025,
+              "Positive Synergy DBA Havasu Solar": 0.025,
+              "Sunsolar Solutions Inc.": 0.025,
+              "Current Home": 0.025,
+              "Evergreen Solar Inc.": 0.025,
+              "Kin Home LLC": 0.025,
+              "Green Power Energy": 0.025
+            }
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 340133057.02183694,
+        "active": true
+      },
+      {
+        "name": "InstallationPartner_Others_0.15",
+        "category": "Partner",
+        "constraint_type": "Upper Bound",
+        "attribute": "Installation Partner Account",
+        "measure": "FMV",
+        "upper_bound": 0.15,
+        "conditions": [
+          {
+            "type": "Installation Partner Account",
+            "condition": "Equals",
+            "value": "__OTHERS__"
+          }
+        ],
+        "current_allocation": 0,
+        "remaining_capacity": 102039917.10655109,
+        "active": true
+      }
+    ]
+  }
+}
