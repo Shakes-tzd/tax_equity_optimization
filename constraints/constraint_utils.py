@@ -4,7 +4,7 @@ from typing import Dict, List, Tuple
 from constraints.models import Fund, Constraint, ConstraintType
 import pandas as pd
 
-def initialize_constraint_caps(fund: Fund) -> Tuple[Dict[str, Dict], Dict[str, set]]:
+def initialize_constraint_caps(fund: Fund, fund_capacity: float) -> Tuple[Dict[str, Dict], Dict[str, set]]:
     """
     Initialize constraint capacities and track constrained values.
     """
