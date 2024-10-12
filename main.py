@@ -1,8 +1,8 @@
 # main.py
 
 import streamlit as st
-from utils.data_processing import load_constraints
-from optimization.optimizer import allocate_systems_to_fund
+from utils.data_processing import load_constraints,filter_dict
+from optimization.optimizer import allocate_systems_to_funds
 from utils.visualization import display_constraint_analysis
 from constraints.models import Fund
 from typing import Dict, List
@@ -112,22 +112,16 @@ def main():
 
         # Update the fund_targets dictionary with the calculated dollar amount
         fund_targets[fund_name] = target_fmv
-
-    # Run allocation
+        
+        # Run allocation
     if st.button("Run Allocation"):
-        allocation_results = {}
-        for fund_name in selected_funds:
-            fund = funds[fund_name]
-            target_fmv = fund_targets[fund_name]
-            # Ensure the fund capacity used in allocation is updated
-            allocated_systems, infeasible_constraints, constraint_analysis_df = allocate_systems_to_fund(
-                df_systems_filtered.copy(), fund, target_fmv
-            )
-            allocation_results[fund_name] = {
-                'allocated_systems': allocated_systems,
-                'infeasible_constraints': infeasible_constraints,
-                'constraint_analysis': constraint_analysis_df
-            }
+        # Call the new allocation function
+        allocation_results = allocate_systems_to_funds(
+            df_systems=df_systems,
+            df_backlog=df_systems_filtered,
+            funds=filter_dict(funds,selected_funds),
+            fund_targets=fund_targets
+        )
 
         # Display results
         for fund_name, result in allocation_results.items():
@@ -136,33 +130,78 @@ def main():
             constraint_analysis_df = result['constraint_analysis']
             st.subheader(f"Fund: {fund_name}")
 
-            try:
-                if allocated_df.empty:
-                    st.warning("No systems were allocated to this fund.")
-                    total_allocated_fmv = 0.0
-                else:
-                    total_allocated_fmv = allocated_df['FMV'].sum()
-                    st.write(f"**Total Allocated FMV:** ${total_allocated_fmv:,.2f}")
-                    st.write(f"**Number of Systems Allocated:** {len(allocated_df)}")
-                    # Display allocated systems
-                    with st.expander("View Allocated Systems"):
-                        st.dataframe(allocated_df)
+            total_allocated_fmv = allocated_df['FMV'].sum()
+            st.write(f"**Total Allocated FMV:** ${total_allocated_fmv:,.2f}")
+            st.write(f"**Number of Systems Allocated:** {len(allocated_df)}")
 
-                if infeasible_constraints:
-                    st.warning("Infeasible Constraints Detected:")
-                    for constraint in infeasible_constraints:
-                        st.write(f"- {constraint}")
-                else:
-                    st.success("All constraints satisfied.")
+            if infeasible_constraints:
+                st.warning("Infeasible Constraints Detected:")
+                for constraint in infeasible_constraints:
+                    st.write(f"- {constraint}")
+            else:
+                st.success("All constraints satisfied.")
 
-                # Display constraint analysis
-                if not constraint_analysis_df.empty:
-                    st.subheader("Constraint Analysis")
-                    display_constraint_analysis(constraint_analysis_df)
-                else:
-                    st.info("No constraint analysis available.")
-            except Exception as e:
-                st.error(f"An error occurred while displaying results for {fund_name}: {e}")
+            # Display allocated systems
+            with st.expander("View Allocated Systems"):
+                st.dataframe(allocated_df)
+
+            # Display constraint analysis
+            if not constraint_analysis_df.empty:
+                st.subheader("Constraint Analysis")
+                display_constraint_analysis(constraint_analysis_df)
+            else:
+                st.info("No constraint analysis available.")
+
+    # # Run allocation
+    # if st.button("Run Allocation"):
+    #     allocation_results = {}
+    #     for fund_name in selected_funds:
+    #         fund = funds[fund_name]
+    #         target_fmv = fund_targets[fund_name]
+    #         # Ensure the fund capacity used in allocation is updated
+    #         allocated_systems, infeasible_constraints, constraint_analysis_df = allocate_systems_to_fund(
+    #             df_systems_filtered.copy(), fund, target_fmv
+    #         )
+    #         allocation_results[fund_name] = {
+    #             'allocated_systems': allocated_systems,
+    #             'infeasible_constraints': infeasible_constraints,
+    #             'constraint_analysis': constraint_analysis_df
+    #         }
+
+    #     # Display results
+    #     for fund_name, result in allocation_results.items():
+    #         allocated_df = result['allocated_systems']
+    #         infeasible_constraints = result['infeasible_constraints']
+    #         constraint_analysis_df = result['constraint_analysis']
+    #         st.subheader(f"Fund: {fund_name}")
+
+    #         try:
+    #             if allocated_df.empty:
+    #                 st.warning("No systems were allocated to this fund.")
+    #                 total_allocated_fmv = 0.0
+    #             else:
+    #                 total_allocated_fmv = allocated_df['FMV'].sum()
+    #                 st.write(f"**Total Allocated FMV:** ${total_allocated_fmv:,.2f}")
+    #                 st.write(f"**Number of Systems Allocated:** {len(allocated_df)}")
+    #                 # Display allocated systems
+    #                 with st.expander("View Allocated Systems"):
+    #                     st.dataframe(allocated_df)
+
+    #             if infeasible_constraints:
+    #                 st.warning("Infeasible Constraints Detected:")
+    #                 for constraint in infeasible_constraints:
+    #                     st.write(f"- {constraint}")
+    #             else:
+    #                 st.success("All constraints satisfied.")
+
+    #             # Display constraint analysis
+    #             if not constraint_analysis_df.empty:
+    #                 st.subheader("Constraint Analysis")
+    #                 display_constraint_analysis(constraint_analysis_df)
+    #             else:
+    #                 st.info("No constraint analysis available.")
+    #         except Exception as e:
+    #             st.error(f"An error occurred while displaying results for {fund_name}: {e}")
 
 if __name__ == "__main__":
     main()

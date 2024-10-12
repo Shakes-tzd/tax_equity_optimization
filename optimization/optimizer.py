@@ -76,7 +76,7 @@ def allocate_systems_to_funds(
     candidate_allocations = []
 
     # Exclude systems that are already allocated to any fund
-    allocated_systems_ids = df_systems[df_systems['Asset Portfolio - Customer'].isin(fund_names)].index
+    allocated_systems_ids = df_systems[df_systems['Asset Portfolio - Customer']!='Sunnova TEP Developer LLC'].index
     df_backlog = df_backlog.drop(index=allocated_systems_ids, errors='ignore')
 
     # Apply exclusion constraints upfront
@@ -157,7 +157,7 @@ def allocate_systems_to_funds(
 
         if feasible:
             # Allocate system to fund
-            fund_info['allocated_systems'] = fund_info['allocated_systems'].append(system)
+            fund_info['allocated_systems'] = pd.concat([fund_info['allocated_systems'], pd.DataFrame([system])], ignore_index=True)
             fund_info['remaining_capacity'] -= system_fmv
 
             # Update attribute allocations

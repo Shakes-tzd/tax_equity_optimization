@@ -4,7 +4,8 @@ import json
 import pandas as pd
 from typing import Dict, Union
 from constraints.models import Fund, Constraint, Condition, ConstraintCategory, ConstraintType
-
+def filter_dict(original_dict, keys_to_keep):
+    return {k: original_dict[k] for k in keys_to_keep if k in original_dict}
 def load_constraints(json_data: Union[Dict, str]) -> Dict[str, Fund]:
     if isinstance(json_data, str):
         # If a string is provided, assume it's a file path
