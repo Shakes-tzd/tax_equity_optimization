@@ -117,7 +117,7 @@ def main():
     if st.button("Run Allocation"):
         # Call the new allocation function
         allocation_results = allocate_systems_to_funds(
-            df_systems=df_systems,
+            df_systems=df_systems[df_systems['Stage'] == 'Cancelled'],
             df_backlog=df_systems_filtered,
             funds=filter_dict(funds,selected_funds),
             fund_targets=fund_targets
