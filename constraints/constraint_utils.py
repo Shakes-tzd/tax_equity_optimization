@@ -18,7 +18,7 @@ def initialize_constraint_caps(fund: Fund, fund_capacity: float) -> Tuple[Dict[s
         if constraint.constraint_type == ConstraintType.EXCLUSION:
             continue  # Exclusions are handled separately
 
-        fund_capacity = fund.capacity
+        fund_capacity = fund_capacity
         upper_bound = constraint.upper_bound
 
         for condition in constraint.conditions:

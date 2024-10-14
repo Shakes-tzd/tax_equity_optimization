@@ -4,6 +4,7 @@ from typing import Dict, List, Tuple
 from constraints.models import Fund, ConstraintType
 from constraints.constraint_utils import initialize_constraint_caps, apply_exclusions
 import pandas as pd
+import streamlit as st
 
 def allocate_systems_to_funds(
     df_systems: pd.DataFrame,
@@ -48,6 +49,8 @@ def allocate_systems_to_funds(
 
         # Initialize constraints
         attribute_caps, constrained_values = initialize_constraint_caps(fund, target_capacity)
+        st.write(attribute_caps)
+        # st.write(constrained_values)
 
         # Calculate current attribute allocations
         attribute_allocations = {}
@@ -76,7 +79,7 @@ def allocate_systems_to_funds(
     candidate_allocations = []
 
     # Exclude systems that are already allocated to any fund
-    allocated_systems_ids = df_systems[df_systems['Asset Portfolio - Customer']!='Sunnova TEP Developer LLC'].index
+    allocated_systems_ids = df_systems[df_systems['Asset Portfolio - Customer']!='Sunnova TEP Developer LLC']['System Name']
     df_backlog = df_backlog.drop(index=allocated_systems_ids, errors='ignore')
 
     # Apply exclusion constraints upfront
@@ -87,7 +90,7 @@ def allocate_systems_to_funds(
 
     for idx, system in df_backlog.iterrows():
         system_fmv = system['FMV']
-        system_id = idx  # Assuming index is unique identifier
+        system_id = system['System Name']  # Assuming index is unique identifier
         for fund_name, fund_info in fund_data.items():
             # Skip if fund has no remaining capacity
             if fund_info['remaining_capacity'] < system_fmv:

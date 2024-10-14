@@ -17,8 +17,6 @@
             "values": ["MT", "MP", "VI"]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 221844103.101741,
         "active": true
       },
       {
@@ -41,8 +39,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 221844103.101741,
         "active": true
       },
       {
@@ -67,8 +63,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 73948034.367247,
         "active": true
       },
       {
@@ -87,8 +81,6 @@
             "values": ["Hanwha Q Cells", "Qcells"]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 480662223.3871055,
         "active": true
       },
       {
@@ -107,8 +99,6 @@
             "values": ["SEG Solar", "Silfab"]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 73948034.367247,
         "active": true
       },
       {
@@ -139,8 +129,6 @@
             }
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 295792137.46899,
         "active": true
       }
     ]
@@ -168,8 +156,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 0,
         "active": true
       }
     ]
@@ -194,8 +180,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 0,
         "active": true
       },
       {
@@ -216,8 +200,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 57367029.8412683,
         "active": true
       },
       {
@@ -235,8 +217,6 @@
             "values": ["Generac", "FranklinWH"]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 57367029.8412683,
         "active": true
       },
       {
@@ -253,8 +233,6 @@
             "value": "Generac"
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 57367029.8412683,
         "active": true
       }
     ]
@@ -278,8 +256,6 @@
             "values": ["GU", "MP", "PR"]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 136053222.8087348,
         "active": true
       },
       {
@@ -303,8 +279,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 68026611.4043674,
         "active": true
       },
       {
@@ -342,8 +316,6 @@
             }
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 306119751.31965326,
         "active": true
       },
       {
@@ -390,8 +362,6 @@
             }
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 408159668.42620444,
         "active": true
       },
       {
@@ -414,8 +384,6 @@
             }
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 476186279.83057177,
         "active": true
       },
       {
@@ -434,8 +402,6 @@
             "values": ["Windmar Energy", "Windmar Home Florida Inc."]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 136053222.8087348,
         "active": true
       },
       {
@@ -459,8 +425,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 68026611.4043674,
         "active": true
       },
       {
@@ -479,8 +443,6 @@
             "values": ["Brilliant Solar", "Brilliant Solar - Installer"]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 34013305.702183704,
         "active": true
       },
       {
@@ -508,8 +470,6 @@
             ]
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 17006652.851091852,
         "active": true
       },
       {
@@ -563,8 +523,6 @@
             }
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 340133057.02183694,
         "active": true
       },
       {
@@ -581,8 +539,6 @@
             "value": "__OTHERS__"
           }
         ],
-        "current_allocation": 0,
-        "remaining_capacity": 102039917.10655109,
         "active": true
       }
     ]
