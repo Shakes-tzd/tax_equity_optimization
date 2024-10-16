@@ -1,5 +1,4 @@
 # constraints/models.py
-
 from typing import List, Optional, Union, Dict
 from enum import Enum
 from pydantic import BaseModel, Field
@@ -38,3 +37,15 @@ class Fund(BaseModel):
     name: str
     capacity: float
     constraints: List[Constraint] = Field(default_factory=list)
+
+class ConstraintModel(BaseModel):
+    name: str
+    attribute: str
+    upper_bound: float
+    values: List[str] = Field(default_factory=list)
+    is_group: bool = False
+
+class FundModel(BaseModel):
+    name: str
+    target_capacity: float
+    constraints: List[ConstraintModel]

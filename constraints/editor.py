@@ -1,7 +1,25 @@
 import streamlit as st
-from utils.data_processing import load_constraints, save_constraints
+from utils.data_processing import load_constraints #, save_constraints
 from constraints.models import Fund, Constraint, Condition, ConstraintCategory, ConstraintType
 from typing import Dict
+
+def constraint_editor_page():
+    st.title("Constraint Editor")
+
+    # Access constraints from session state
+    if 'funds' not in st.session_state or st.session_state['funds'] is None:
+        st.error("No constraints data found. Please upload constraints in the 'Optimization' page.")
+        return
+    else:
+        funds = st.session_state['funds']
+
+    # Rest of your constraint editor code
+    edited_funds = render_fund_editor(funds)
+
+    # Save Changes
+    if st.button("Save Changes"):
+        st.session_state['funds'] = edited_funds
+        st.success("Changes saved successfully!")
 
 def constraint_editor():
     st.title("Constraint Editor")
