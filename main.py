@@ -10,7 +10,7 @@ import pandas as pd
 import io
 
 def main_page():
-    st.title("Solar System Allocation")
+    st.title("TPO Systems Allocation in to TEPs")
 
     # Check if constraints are loaded in session state
     if 'funds' not in st.session_state:
@@ -22,6 +22,7 @@ def main_page():
 
     # Data Upload
     with st.expander("### Data Upload"):
+        st.write("Please navigate to the following folder to retrieve the input data:\n`Z:/Shared/Finance/Treasury/Facility Funding/tax equity/TEP Optimization/Input Data`")
         # Upload Parquet file
         uploaded_parquet = st.file_uploader("Upload Parquet File", type="parquet")
         if uploaded_parquet is not None:
@@ -71,7 +72,7 @@ def main_page():
             return
 
     # Option to proceed to constraint editor
-    st.write("If you wish to edit the constraints, please select 'Constraint Editor' from the navigation sidebar.")
+    st.warning("If you wish to edit the constraints, please select 'Constraint Editor' from the navigation sidebar.")
 
     # Proceed with the rest of the optimization code
     # Filter systems that are in the backlog
